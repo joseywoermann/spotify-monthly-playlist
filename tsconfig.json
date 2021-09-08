@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "outDir": "./out",
+        "target": "esnext",
+        "removeComments": true,
+        "moduleResolution": "node",
+    }
+}
