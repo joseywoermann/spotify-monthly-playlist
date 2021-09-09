@@ -1,14 +1,15 @@
-export interface Root {
-    items: Item[];
-    total: number;
-    limit: number;
-    offset: number;
-    previous: any;
-    href: string;
-    next: any;
+export interface SpotifyResponse {
+    items?: Track[];
+    total?: number;
+    limit?: number;
+    offset?: number;
+    previous?: any;
+    href?: string;
+    next?: any;
+    error?: Error;
 }
 
-export interface Item {
+export interface Track {
     album: Album;
     artists: Artist[];
     available_markets: string[];
@@ -65,6 +66,11 @@ export interface Image {
 
 export interface ExternalIds {
     isrc: string;
+}
+
+export interface Error {
+    status: number;
+    message: string;
 }
 
 // other stuff
