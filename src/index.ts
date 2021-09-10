@@ -1,11 +1,12 @@
 import fetch from "node-fetch";
+
 import {
     debugLog,
     errorLog,
-    getMonth,
-    getYear,
     infoLog,
     warnLog,
+    getMonth,
+    getYear,
 } from "./util/helpers.js";
 import { settings } from "./util/settings.js";
 import {
@@ -28,15 +29,14 @@ const main = async () => {
             { headers: { Authorization: token } }
         );
         data = await response.json();
-        console.log(data);
     } catch (error) {
         errorLog(error);
     }
     if (data.error) return errorLog(`[SPOTIFY] ${data.error.message}`);
 
     const tracks: Track[] = data.items;
-
     uris = tracks.map((track) => track.uri);
+
     infoLog("Data has been retrieved successfully");
     await createPlaylist();
 };
@@ -58,14 +58,13 @@ const createPlaylist = async () => {
             }
         );
         data = await response.json();
-        console.log(data);
         if (data.error) return errorLog(`[SPOTIFY] ${data.error.message}`);
         infoLog("Playlist has been created successfully");
     } catch (error) {
         errorLog(error);
     }
 
-    await addItems(data["id"], uris);
+    await addItems(data.id, uris);
 };
 
 const addItems = async (playlistId: string, uris: URI[]) => {
@@ -80,7 +79,6 @@ const addItems = async (playlistId: string, uris: URI[]) => {
             }
         );
         data = await response.json();
-        console.log(data);
         if (data.error) return errorLog(`[SPOTIFY] ${data.error.message}`);
         infoLog("Songs have been added successfully");
     } catch (error) {
