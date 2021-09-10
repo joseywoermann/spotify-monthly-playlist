@@ -8,20 +8,27 @@ import {
     warnLog,
 } from "./util/helpers.js";
 import { settings } from "./util/settings.js";
-import { Track, SpotifyResponse, URI } from "./util/typings";
+import {
+    Track,
+    SpotifyResponse,
+    URI,
+    PlaylistResponse,
+    AddSongsResponse,
+} from "./util/typings";
 
 const { token, limit } = settings;
 
 let uris: URI[];
-let data: SpotifyResponse;
 
 const main = async () => {
+    let data: SpotifyResponse;
     try {
         const response = await fetch(
             `https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=${limit}`,
             { headers: { Authorization: token } }
         );
         data = await response.json();
+        console.log(data);
     } catch (error) {
         errorLog(error);
     }
@@ -35,6 +42,7 @@ const main = async () => {
 };
 
 const createPlaylist = async () => {
+    let data: PlaylistResponse;
     try {
         const response = await fetch(
             "https://api.spotify.com/v1/me/playlists",
@@ -50,6 +58,7 @@ const createPlaylist = async () => {
             }
         );
         data = await response.json();
+        console.log(data);
         if (data.error) return errorLog(`[SPOTIFY] ${data.error.message}`);
         infoLog("Playlist has been created successfully");
     } catch (error) {
@@ -60,6 +69,7 @@ const createPlaylist = async () => {
 };
 
 const addItems = async (playlistId: string, uris: URI[]) => {
+    let data: AddSongsResponse;
     try {
         const response = await fetch(
             `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
@@ -70,6 +80,7 @@ const addItems = async (playlistId: string, uris: URI[]) => {
             }
         );
         data = await response.json();
+        console.log(data);
         if (data.error) return errorLog(`[SPOTIFY] ${data.error.message}`);
         infoLog("Songs have been added successfully");
     } catch (error) {

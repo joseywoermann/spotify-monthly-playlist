@@ -1,3 +1,4 @@
+// responses
 export interface SpotifyResponse {
     items?: Track[];
     total?: number;
@@ -7,6 +8,39 @@ export interface SpotifyResponse {
     href?: string;
     next?: any;
     error?: Error;
+}
+
+export interface PlaylistResponse {
+    collaborative: boolean;
+    description: string;
+    external_urls: ExternalUrls;
+    followers: { href: string | undefined; total: number };
+    href: string;
+    id: string;
+    images: Image[];
+    name: string;
+    owner: SpotifyUser;
+    primary_color: string | undefined;
+    public: boolean;
+    snapshot_id: string;
+    tracks: any; // TYPE this
+    type: string;
+    uri: string;
+}
+
+export interface AddSongsResponse {
+    snapshot_id: string;
+}
+
+// end responses
+
+export interface SpotifyUser {
+    display_name?: string;
+    external_urls?: ExternalUrls;
+    href?: string;
+    id?: string;
+    type?: string;
+    uri?: string;
 }
 
 export interface Track {
