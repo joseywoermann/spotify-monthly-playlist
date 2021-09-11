@@ -121,7 +121,9 @@ export interface Error {
 
 export interface Settings {
     token: string;
+    client_id: string;
     limit: number;
+    scopes: string;
 }
 
 export type URI = string;

@@ -68,7 +68,7 @@ const createPlaylist = async () => {
 };
 
 const addItems = async (playlistId: string, uris: URI[]) => {
-    let data: AddSongsResponse;
+    // let data: AddSongsResponse | ErrorResponse;
     try {
         const response = await fetch(
             `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
@@ -78,7 +78,7 @@ const addItems = async (playlistId: string, uris: URI[]) => {
                 body: JSON.stringify({ uris: uris }),
             }
         );
-        data = await response.json();
+        const data: AddSongsResponse = await response.json();
         if (data.error) return errorLog(`[SPOTIFY] ${data.error.message}`);
         infoLog("Songs have been added successfully");
     } catch (error) {
@@ -87,5 +87,12 @@ const addItems = async (playlistId: string, uris: URI[]) => {
 };
 
 (async () => {
+    console.log(
+        `https://accounts.spotify.com/authorize?response_type=code&client_id=${
+            settings.client_id
+        }&scope=${encodeURIComponent(
+            settings.scopes
+        )}&redirect_uri=${encodeURIComponent("http://127.0.0.1")}`
+    );
     await main();
 })();
