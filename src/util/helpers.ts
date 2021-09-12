@@ -26,8 +26,21 @@ export const getYear = (): number => {
     return new Date().getFullYear();
 };
 
+// What an ugly piece of code
 export const getUTCTime = (): string => {
-    return `[${new Date().getUTCFullYear()}-${
-        new Date().getUTCMonth() + 1
-    }-${new Date().getUTCDate()}] [${new Date().getUTCHours()}-${new Date().getUTCMinutes()}-${new Date().getUTCSeconds()}]`;
+    return `[${new Date().getUTCFullYear()}-${format(
+        (new Date().getUTCMonth() + 1).toString()
+    )}-${format(
+        new Date().getUTCDate().toString()
+    )}] [${new Date().getUTCHours()}-${new Date().getUTCMinutes()}-${new Date().getUTCSeconds()}]`;
+};
+
+const format = (date: string) => {
+    let formattedDate;
+    if (date.length === 1) {
+        formattedDate = `0${date}`;
+    } else {
+        formattedDate = date;
+    }
+    return formattedDate;
 };
