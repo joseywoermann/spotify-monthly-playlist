@@ -27,5 +27,7 @@ export const getYear = (): number => {
 };
 
 export const getUTCTime = (): string => {
-    return `[${new Date().getUTCFullYear()}-${new Date().getUTCMonth()}-${new Date().getUTCDay()}] [${new Date().getUTCHours()}-${new Date().getUTCMinutes()}-${new Date().getUTCSeconds()}]`;
+    return `[${new Date().getUTCFullYear()}-${
+        new Date().getUTCMonth() + 1
+    }-${new Date().getUTCDate()}] [${new Date().getUTCHours()}-${new Date().getUTCMinutes()}-${new Date().getUTCSeconds()}]`;
 };

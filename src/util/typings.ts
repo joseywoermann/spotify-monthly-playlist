@@ -120,10 +120,8 @@ export interface Error {
 // other stuff
 
 export interface Settings {
-    token: string;
-    client_id: string;
-    limit: number;
-    scopes: string;
+    email: string;
+    password: string;
 }
 
 export type URI = string;
