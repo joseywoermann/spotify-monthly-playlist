@@ -3,8 +3,18 @@ dotenv.config();
 import puppeteer from "puppeteer";
 import { debugLog } from "./util/helpers.js";
 import { settings } from "./util/settings.js";
+import { Selectors, URL } from "./util/typings.js";
 
-const url = "https://www.statsforspotify.com/track/top";
+const url: URL = "https://www.statsforspotify.com/track/top";
+
+const selectors: Selectors = {
+    username: "#login-username",
+    password: "#login-password",
+    button: "#login-button",
+    auth: "#auth-accept",
+    cookies: "button[aria-label=AGREE]",
+    playlist: "button[data-v-006ae5b6]",
+};
 
 (async () => {
     debugLog("Starting browser...");
@@ -13,31 +23,28 @@ const url = "https://www.statsforspotify.com/track/top";
 
     debugLog("Navigating to login page...");
     const page = await browser.newPage();
-    await page.goto("https://www.statsforspotify.com/track/top");
+    await page.goto(url);
     debugLog("Done...");
 
     debugLog("Logging in...");
-    await page.type("#login-username", settings.email);
-    await page.type("#login-password", settings.password);
-    await page.click("#login-button");
+    await page.type(selectors.username, settings.email);
+    await page.type(selectors.password, settings.password);
+    await page.click(selectors.button);
     await new Promise((r) => setTimeout(r, 2000));
-    await page.waitForSelector("#auth-accept");
-    await page.click("#auth-accept");
+    await page.waitForSelector(selectors.auth);
+    await page.click(selectors.auth);
     debugLog("Done...");
 
     // this is pain
     // sometimes the cookie dialog is there, sometimes it never appears
     debugLog("Accepting cookies...");
-    await page.goto("https://www.statsforspotify.com/track/top");
-    // await page.waitForXPath(
-    //     "/html/body/div[1]/div/div/div/div[2]/div/button[2]"
-    // );
-    await page.click("button[aria-label=AGREE]");
+    await page.goto(url);
+    await page.click(selectors.cookies);
     debugLog("Done...");
 
     debugLog("Creating playlist...");
-    await page.goto("https://www.statsforspotify.com/track/top");
-    await page.click("button[data-v-006ae5b6]");
+    await page.goto(url);
+    await page.click(selectors.playlist);
     debugLog("Done...");
 
     debugLog("Closing Browser...");

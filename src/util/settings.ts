@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-dotenv.config();
 import { Settings } from "./typings";
+dotenv.config();
 
 export const settings: Settings = {
     email: process.env.EMAIL,

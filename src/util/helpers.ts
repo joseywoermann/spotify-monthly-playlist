@@ -35,8 +35,8 @@ export const getUTCTime = (): string => {
     )}] [${new Date().getUTCHours()}-${new Date().getUTCMinutes()}-${new Date().getUTCSeconds()}]`;
 };
 
-const format = (date: string) => {
-    let formattedDate;
+const format = (date: string): string => {
+    let formattedDate: string;
     if (date.length === 1) {
         formattedDate = `0${date}`;
     } else {
